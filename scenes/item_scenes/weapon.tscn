@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpgvokvcv5xli"]
+
+[ext_resource type="Texture2D" uid="uid://dnfigs1ieiilg" path="res://assets/weapon/Exotic Swords.png" id="1_lpb41"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0j2nu"]
+size = Vector2(20, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klyrc"]
+atlas = ExtResource("1_lpb41")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bnplh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_klyrc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Weapon" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_0j2nu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 0.785398
+sprite_frames = SubResource("SpriteFrames_bnplh")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhw7m2oi011ax"]
+
+[ext_resource type="Texture2D" uid="uid://b7sfwcdy16cbl" path="res://assets/weapon/32x32pixelart_assets02_weapons_png/weapon03longsword.png" id="1_366hq"]
+
+[node name="CrosshairUi" type="Node2D"]
+
+[node name="indicator" type="Sprite2D" parent="."]
+rotation = -3.14159
+scale = Vector2(0.181105, -0.188134)
+texture = ExtResource("1_366hq")
