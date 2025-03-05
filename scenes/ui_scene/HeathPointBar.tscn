@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dl8ec0khfhv75"]
+
+[node name="HeathPointBar" type="ProgressBar"]
+offset_right = 243.0
+offset_bottom = 27.0
+max_value = 1000.0

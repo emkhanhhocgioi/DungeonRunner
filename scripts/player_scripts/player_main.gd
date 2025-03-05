@@ -1,28 +1,46 @@
 extends CharacterBody2D
 class_name CharacterBase
 
-
+@export var username : String
 @export var healthbar : ProgressBar
 @export var health : int
-@export var level : int 
+@export var level : int
 @export var totalExp : float
+@export var userDamage : float
+@export var userArmor  : float
+@export var userMP : float
+@export var userBalance: float
+@export var userWalletAdd: String
 @export var flipped_horizontal : bool
 @export var hit_particles : GPUParticles2D
+
+
+@onready var http_request: HTTPRequest = $HTTPRequest
 
 var invincible : bool = false
 var is_dead : bool = false
 
 func _ready():
-	init_character()
+	pass
 	
 func _process(_delta):
+
 	pass
 	
-#Add anything here that needs to be initialized on the character
-func init_character():
-	pass
 
-#Flip charater sprites based on their current velocity
+#Add anything here that needs to be initialized on the character
+func init_character(username: String,userBasedHP: int ,userBaseMP: int ,Wallet_Address: String, UserLevel: int 
+, UserTotalExp: float ,userDamage : int, userArmor: int ,userBalance: float):
+	username = username
+	health = userBasedHP
+	userMP = userBaseMP
+	userWalletAdd = Wallet_Address
+	level = UserLevel
+	totalExp = UserTotalExp
+	userDamage = userDamage
+	userArmor = userArmor
+	userBalance = userBalance
+	
 
 
 #region Taking Damage
