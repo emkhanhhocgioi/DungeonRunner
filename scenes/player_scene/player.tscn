@@ -1,14 +1,20 @@
-[gd_scene load_steps=31 format=3 uid="uid://bgxauqvpn8ohy"]
+[gd_scene load_steps=37 format=3 uid="uid://bgxauqvpn8ohy"]
 
 [ext_resource type="Script" path="res://scripts/player_scripts/player.gd" id="1_xq5xl"]
 [ext_resource type="Texture2D" uid="uid://ch2e2x4cfy6sb" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Idle.png" id="1_ynej0"]
 [ext_resource type="Texture2D" uid="uid://7mtcwxw70k4x" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier with shadows/Soldier-Attack01.png" id="2_68tuu"]
 [ext_resource type="Texture2D" uid="uid://c20xog6j8krhq" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Walk.png" id="3_ib7mb"]
+[ext_resource type="Texture2D" uid="uid://ibygogmw3qqb" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Hurt.png" id="3_xdo5i"]
 [ext_resource type="Script" path="res://scripts/player_scripts/fsm.gd" id="5_qh52h"]
 [ext_resource type="Script" path="res://scripts/player_scripts/playerState/idle.gd" id="6_xjvqk"]
 [ext_resource type="Script" path="res://scripts/player_scripts/playerState/running.gd" id="7_h5538"]
 [ext_resource type="Script" path="res://scripts/player_scripts/playerState/attack.gd" id="8_tf6bw"]
 [ext_resource type="Script" path="res://scripts/Hitbox.gd" id="9_tdsy2"]
+[ext_resource type="Script" path="res://scripts/Hurtbox.gd" id="11_vjh3q"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mpdj7"]
+radius = 5.0
+height = 16.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_14jnr"]
 atlas = ExtResource("2_68tuu")
@@ -25,6 +31,22 @@ region = Rect2(400, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_3x0pa"]
 atlas = ExtResource("2_68tuu")
 region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xat6y"]
+atlas = ExtResource("3_xdo5i")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6s2i"]
+atlas = ExtResource("3_xdo5i")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wlr5v"]
+atlas = ExtResource("3_xdo5i")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a570k"]
+atlas = ExtResource("3_xdo5i")
+region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xel1c"]
 atlas = ExtResource("1_ynej0")
@@ -103,6 +125,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_xat6y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6s2i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wlr5v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a570k")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_xel1c")
 }, {
 "duration": 1.0,
@@ -154,24 +193,23 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mpdj7"]
-radius = 6.0
-height = 16.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5s16u"]
 size = Vector2(12.9375, 13)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_xq5xl")
 
+[node name="HurtBox" type="Area2D" parent="."]
+script = ExtResource("11_vjh3q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_mpdj7")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_no367")
-animation = &"idle"
+animation = &"hurt"
 autoplay = "idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
-shape = SubResource("CapsuleShape2D_mpdj7")
 
 [node name="FiniteStateMachine" type="Node" parent="."]
 script = ExtResource("5_qh52h")
@@ -191,7 +229,13 @@ script = ExtResource("8_tf6bw")
 script = ExtResource("9_tdsy2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(17.5313, 2.5)
+position = Vector2(17, -2)
 shape = SubResource("RectangleShape2D_5s16u")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_mpdj7")

@@ -17,8 +17,8 @@ func _ready():
 			child.state_transition.connect(change_state)
 
 	# Nếu inital_state chưa được gán, tìm "idle" trong states
-	if !inital_state and states.has("idle"):
-		inital_state = states["idle"]
+	if !inital_state and states.has("attack"):
+		inital_state = states["attack"]
 		
 
 	if inital_state:

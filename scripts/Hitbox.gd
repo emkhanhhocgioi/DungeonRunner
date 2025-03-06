@@ -2,7 +2,7 @@ extends Area2D
 class_name Hitbox
 
 
-@export var damage := 10
+@export var damage : int  
 
 func _init() -> void:
 	add_to_group("Hitbox")
@@ -14,7 +14,10 @@ func _init() -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
+func changeBaseDamage (dmg : int) -> void :
+	damage = dmg
+	pass
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends CharacterBody2D 
 class_name PlayerMain
 @onready var fsm = $FSM as FiniteStateMachine
 @onready var PlayerSprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -18,6 +18,7 @@ class_name PlayerMain
 @export var flipped_horizontal : bool
 @export var hit_particles : GPUParticles2D
 
+#player va cham voi mob khac chiu sat thuong
 
 @onready var http_request: HTTPRequest = $HTTPRequest
 
@@ -46,6 +47,15 @@ func init_character(username: String,userBasedHP: int ,userBaseMP: int ,Wallet_A
 	userDamage = userDamage
 	userArmor = userArmor
 	userBalance = userBalance
+	hitbox.changeBaseDamage(userDamage)
+	
+
+func take_damage (damage : int) -> void :
+	health = health-damage
+	PlayerSprite.play("hurt")
+	await PlayerSprite.animation_finished
+	PlayerSprite.play("idle")
+	pass
 func _ready():
 	pass
 	
@@ -91,3 +101,7 @@ func _on_request_completed(result, response_code, headers, body):
 func _process(delta):
 
 	Turn()
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	pass # Replace with function body.

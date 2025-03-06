@@ -1,11 +1,13 @@
-[gd_scene load_steps=33 format=3 uid="uid://8ihtlr3fcxmn"]
+[gd_scene load_steps=42 format=3 uid="uid://8ihtlr3fcxmn"]
 
-[ext_resource type="Script" path="res://scenes/enemy_scene/melee_enemy.gd" id="1_3mxnc"]
+[ext_resource type="Script" path="res://scenes/enemy_scene/script/melee_enemy.gd" id="1_3mxnc"]
 [ext_resource type="Texture2D" uid="uid://dila8mste8etf" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc with shadows/Orc-Idle.png" id="1_6me3j"]
 [ext_resource type="Texture2D" uid="uid://dsfm3wm6uup5t" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc with shadows/Orc-Death.png" id="2_jljas"]
 [ext_resource type="Texture2D" uid="uid://bq0jt27w0e1o2" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc with shadows/Orc-Hurt.png" id="2_ownub"]
 [ext_resource type="Texture2D" uid="uid://b66848b7ohih4" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc with shadows/Orc-Walk.png" id="2_ua8hf"]
 [ext_resource type="Script" path="res://scripts/Hurtbox.gd" id="3_k5epe"]
+[ext_resource type="Texture2D" uid="uid://cwk1vpvfc1ux2" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Attack01.png" id="4_x43tf"]
+[ext_resource type="Script" path="res://scripts/Hitbox.gd" id="7_7gd0y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ej51n"]
 atlas = ExtResource("2_ownub")
@@ -46,6 +48,30 @@ region = Rect2(200, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_0aqe6"]
 atlas = ExtResource("2_ownub")
 region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pw3e"]
+atlas = ExtResource("4_x43tf")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4is2t"]
+atlas = ExtResource("4_x43tf")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqv64"]
+atlas = ExtResource("4_x43tf")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6aa8"]
+atlas = ExtResource("4_x43tf")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afim6"]
+atlas = ExtResource("4_x43tf")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o453t"]
+atlas = ExtResource("4_x43tf")
+region = Rect2(500, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w1r7v"]
 atlas = ExtResource("1_6me3j")
@@ -147,6 +173,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_5pw3e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4is2t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cqv64")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6aa8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afim6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o453t")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_w1r7v")
 }, {
 "duration": 1.0,
@@ -202,15 +251,20 @@ animations = [{
 radius = 4.0
 height = 14.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ka4js"]
+size = Vector2(12, 10)
+
 [node name="MeleeEnemy" type="Node"]
 script = ExtResource("1_3mxnc")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="OrcSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -6)
 scale = Vector2(0.81, 0.82)
 sprite_frames = SubResource("SpriteFrames_fr7xx")
-animation = &"idle"
+animation = &"running"
 autoplay = "idle"
+frame = 7
+frame_progress = 0.0770679
 
 [node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("3_k5epe")
@@ -218,3 +272,12 @@ script = ExtResource("3_k5epe")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_tf6px")
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("7_7gd0y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(20, -6)
+shape = SubResource("RectangleShape2D_ka4js")
+
+[node name="Timer" type="Timer" parent="."]

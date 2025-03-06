@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtwfpmlelilrj"]
+[gd_scene load_steps=9 format=3 uid="uid://dtwfpmlelilrj"]
 
 [ext_resource type="Texture2D" uid="uid://btx12k4npo2r8" path="res://assets/bf163381-8964-4c95-a9a0-1a309ce34622.png" id="1_g4jh5"]
+[ext_resource type="Script" path="res://scripts/UI_scripts/game_menu.gd" id="1_vsatn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y7mhf"]
 border_width_left = 4
@@ -55,6 +56,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_vsatn")
 
 [node name="PlayerInfoBox" type="Panel" parent="."]
 layout_mode = 0
@@ -85,7 +87,7 @@ offset_bottom = 30.0
 texture = ExtResource("1_g4jh5")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="PlayerInfoBox/PlayerAvatar"]
+[node name="playerName" type="Label" parent="PlayerInfoBox/PlayerAvatar"]
 layout_mode = 0
 offset_left = 44.0
 offset_top = -6.0
